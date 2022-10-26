@@ -2,7 +2,7 @@
 
 
 
-> In this Project I creat the initial data structure for a vet clinic . it includes a table to store animals data .
+> In this Project I creat the initial data structure for a vet clinic . it includes a table to store animals data 
 
 
 ## Getting Started
