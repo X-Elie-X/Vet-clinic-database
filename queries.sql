@@ -20,7 +20,7 @@ delete FROM animals where date_of_birth > '2022-01-01';
 update animals set weight_kg = weight_kg * -1;
 update animals set weight_kg = weight_kg * -1 where weight_kg < 0;
 
---  answer the following questions
+--  answer the following questions:
 -- How many animals are there?
 SELECT count (*) FROM animals;
 -- How many animals have never tried to escape?
@@ -34,3 +34,18 @@ SELECT species, MIN  (weight_kg),MAX(weight_kg) FROM animals GROUP BY species;
 -- What is the average number of escape attempts per animal type of those born between 1990 and 2000?
 SELECT species, AVG (escape_attempts) FROM animals WHERE date_of_birth >= '1990-01-01' AND date_of_birth < '2000-12-31' GROUP BY species;
 
+-- Write queries (using JOIN) to answer the following questions:
+-- What animals belong to Melody Pond?
+SELECT owner_id,name,full_name FROM owners INNER JOIN animals ON owners.id = animals.owner_id WHERE owners.full_name ='Melody Pond';
+-- List of all animals that are pokemon (their type is Pokemon)
+SELECT * from Animals INNER JOIN species on species.id = animals.species_id WHERE species.name = 'Pokemon';
+-- List all owners and their animals, remember to include those that don't own any animal
+select * FROM owners FULL outer JOIN animals ON owners.id = animals.owner_id;
+-- How many animals are there per species?
+SELECT species.name, count(*) FROM species INNER JOIN animals on species.id = animals.species_id  GROUP  BY species.name;
+-- List all Digimon owned by Jennifer Orwell.
+SELECT * FROM animals INNER JOIN owners on animals.owner_id = owners.id INNER join species ON species.id = animals.species_id where species.name = 'Digimon' AND owners.full_name = 'Jennifer Orwell';
+-- List all animals owned by Dean Winchester that haven't tried to escape
+SELECT * FROM animals INNER JOIN owners on owners.id = animals.owner_id WHERE owners.full_name = 'Dean Winchester' and animals.escape_attempts = 0;
+-- Who owns the most animals?
+SELECT owners.full_name, COUNT(*) FROM animals INNER JOIN owners ON owners.id = animals.owner_id GROUP BY owners.full_name ORDER BY Count DESC LIMIT 1;
