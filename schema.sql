@@ -35,3 +35,16 @@ alter table animals add column species_id INT references species(id);
 -- Add owner_id to animal table
 alter table animals add column owner_id INT references owners(id);
 
+--  vets table 
+
+CREATE TABLE vets(id BIGSERIAL NOT NULL PRIMARY KEY,
+"name" character varying(100)  NOT NULL,
+age integer NOT NULL,
+date_of_graduation date NOT NULL);
+
+--  Create a  specializations table
+CREATE TABLE specializations (id INT GENERATED ALWAYS AS IDENTITY, species_id INT NOT NULL, vet_id INT NOT NULL, PRIMARY KEY(id), FOREIGN KEY (species_id) REFERENCES species (id), FOREIGN KEY (vet_id) REFERENCES vets (id));
+
+-- Creat a Visits table
+
+CREATE TABLE visits (id INT GENERATED ALWAYS AS IDENTITY,animal_id INT NOT NULL, vet_id INT NOT NULL, date_of_visit DATE NOT NULL, PRIMARY KEY(id), FOREIGN KEY (animal_id) REFERENCES animals (id), FOREIGN KEY (vet_id) REFERENCES vets (id));
