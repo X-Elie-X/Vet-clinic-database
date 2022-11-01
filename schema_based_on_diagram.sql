@@ -13,6 +13,7 @@ CREATE TABLE "invoices" (
   PRIMARY KEY ("id"),
   FOREIGN KEY (medical_history__id) REFERENCES medical_histories(id)
 );
+CREATE INDEX index_invoices ON invoices(medical_history__id);
 
 CREATE TABLE "medical_histories" (
   "id" INT,
@@ -22,6 +23,7 @@ CREATE TABLE "medical_histories" (
   PRIMARY KEY ("id"),
   FOREIGN KEY (patient_id) REFERENCES patients(id)
 );
+CREATE INDEX index_medical_histories ON medical_histories(patient_id);
 CREATE TABLE "treatments" (
   "id" INT,
   "type" VARCHAR,
@@ -39,3 +41,5 @@ CREATE TABLE "invoice_items" (
   FOREIGN KEY (treatment_id) REFERENCES treatments(id),
   FOREIGN KEY (invoice_id) REFERENCES invoices(id)
 );
+CREATE INDEX index_treatment_id ON invoice_items(treatment_id);
+CREATE INDEX index_invoice_items ON invoice_items(invoice_id);
