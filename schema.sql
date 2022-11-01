@@ -48,3 +48,14 @@ CREATE TABLE specializations (id INT GENERATED ALWAYS AS IDENTITY, species_id IN
 -- Creat a Visits table
 
 CREATE TABLE visits (id INT GENERATED ALWAYS AS IDENTITY,animal_id INT NOT NULL, vet_id INT NOT NULL, date_of_visit DATE NOT NULL, PRIMARY KEY(id), FOREIGN KEY (animal_id) REFERENCES animals (id), FOREIGN KEY (vet_id) REFERENCES vets (id));
+
+
+--  Create a  specializations table
+CREATE TABLE specializations (id INT GENERATED ALWAYS AS IDENTITY, species_id INT NOT NULL, vet_id INT NOT NULL, PRIMARY KEY(id), FOREIGN KEY (species_id) REFERENCES species (id), FOREIGN KEY (vet_id) REFERENCES vets (id));
+
+-- Creat a Visits table
+
+CREATE TABLE visits (id INT GENERATED ALWAYS AS IDENTITY,animal_id INT NOT NULL, vet_id INT NOT NULL, date_of_visit DATE NOT NULL, PRIMARY KEY(id), FOREIGN KEY (animal_id) REFERENCES animals (id), FOREIGN KEY (vet_id) REFERENCES vets (id));
+
+-- Add an email column to your owners table
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
