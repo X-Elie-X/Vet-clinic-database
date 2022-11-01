@@ -78,3 +78,22 @@ SELECT vets.name AS vet_name, COUNT(*) FROM visits INNER JOIN vets ON vets.id = 
 
 -- What specialty should Maisy Smith consider getting? Look for the species she gets the most.
 SELECT vets.name AS vet_name, species.name AS species_name, COUNT(species.name) FROM visits LEFT JOIN animals ON animals.id = visits.animal_id INNER JOIN vets ON vets.id = visits.vet_id INNER JOIN species ON species.id = animals.species_id WHERE vets.name = 'Maisy Smith' GROUP BY vets.name, species.name ORDER BY COUNT DESC LIMIT 1;
+
+
+-- queries are taking too much time:
+EXPLAIN ANALYZE SELECT COUNT(*) FROM visits where animal_id = 4;
+--  Execution Time: 1168.544 ms
+EXPLAIN ANALYZE SELECT * FROM visits where vet_id = 2;
+-- Execution Time: 1320.952 ms
+EXPLAIN ANALYZE SELECT * FROM owners where email = 'owner_18327@mail.com';
+-- Execution Time: 1097.297 ms
+-- create index
+CREATE INDEX index_animal ON visits(animal_id);
+EXPLAIN ANALYZE SELECT COUNT(*) FROM visits where animal_id = 4;
+--  Execution Time: 197.137 ms
+CREATE INDEX index_vet ON visits (vet_id);
+EXPLAIN ANALYZE SELECT * FROM visits where vet_id = 2;
+--  Execution Time: 1280.134 ms
+CREATE INDEX index_email ON owners(email);
+EXPLAIN ANALYZE SELECT * FROM owners where email = 'owner_18327@mail.com';
+-- Execution Time: 4.362 ms
