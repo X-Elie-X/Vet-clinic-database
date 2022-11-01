@@ -10,7 +10,8 @@ CREATE TABLE "invoices" (
   "generated_at" TIMESTAMP,
   "payed_at" TIMESTAMP,
   "medical_history__id" INT,
-  PRIMARY KEY ("id")
+  PRIMARY KEY ("id"),
+  FOREIGN KEY (medical_history__id) REFERENCES medical_histories(id)
 );
 
 CREATE TABLE "medical_histories" (
@@ -18,7 +19,8 @@ CREATE TABLE "medical_histories" (
   "admitted_at" TIMESTAMP,
   "patient_id" INT,
   "status" VARCHAR,
-  PRIMARY KEY ("id")
+  PRIMARY KEY ("id"),
+  FOREIGN KEY (patient_id) REFERENCES patients(id)
 );
 CREATE TABLE "treatments" (
   "id" INT,
@@ -33,5 +35,7 @@ CREATE TABLE "invoice_items" (
   "total_price" DECIMAL,
   "invoice_id" INT,
   "treatment_id" INT,
-  PRIMARY KEY ("id")
+  PRIMARY KEY ("id"),
+  FOREIGN KEY (treatment_id) REFERENCES treatments(id),
+  FOREIGN KEY (invoice_id) REFERENCES invoices(id)
 );
